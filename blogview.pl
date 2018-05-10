@@ -46,13 +46,7 @@ blog_titles(Titles) :-  findall(Title, blog_title(Title), Titles).
 % Showing posts
 show_post(Request) :-
     member(path_info(Path), Request),
-    blog(json([db=[json(L)]])),
-    member(data=json(X), L),
-    member(posts=Posts, X),
-    member(json(Post), Posts),
-    member(slug=Path, Post),
-    member(title=Title, Post),
-    member(markdown=Markdown, Post),
+    post(Title,Path,Markdown),
     md_parse_string(Markdown, Body),
     reply_html_page(title(["Daniel's Blog - ", Title]), Body).
 
